@@ -1,52 +1,28 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
-
-  const drawdowns = [
-    { name: 'Oil Crisis', year: 1973, drop: -48, recovery: 1980 },
-    { name: 'Black Monday', year: 1987, drop: -34, recovery: 1989 },
-    { name: 'Dot-com', year: 2000, drop: -49, recovery: 2007 },
-    { name: '2008 Crisis', year: 2007, drop: -57, recovery: 2013 },
-    { name: 'COVID', year: 2020, drop: -34, recovery: 2020 },
-  ];
+  import { isDark, chartTheme, styleAxis, setupChartObservers } from '@/lib/chart-utils';
+  import { MARKET_DRAWDOWNS } from '@/lib/constants';
 
   let container: HTMLElement;
   let width = $state(600);
+  let dark = $state(false);
   const height = 220;
   const margin = { top: 20, right: 20, bottom: 30, left: 50 };
 
-  function isDark() {
-    return document.documentElement.classList.contains('dark');
-  }
-
   onMount(() => {
-    const observer = new ResizeObserver((entries) => {
-      width = entries[0].contentRect.width;
-    });
-    observer.observe(container);
-
-    const themeObserver = new MutationObserver(() => {
-      width = container.getBoundingClientRect().width;
-    });
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-
-    return () => {
-      observer.disconnect();
-      themeObserver.disconnect();
-    };
+    dark = isDark();
+    return setupChartObservers(
+      container,
+      (w) => (width = w),
+      () => (dark = isDark()),
+    );
   });
 
   $effect(() => {
     if (!container) return;
 
-    const dark = isDark();
-    const axisColor = dark ? '#4b5563' : '#e5e7eb';
-    const tickColor = dark ? '#9ca3af' : '#6b7280';
-    const redColor = dark ? '#f87171' : '#ef4444';
-    const labelColor = dark ? '#9ca3af' : '#6b7280';
+    const theme = chartTheme(dark);
 
     const svg = d3.select(container).select('svg');
     svg.selectAll('*').remove();
@@ -65,11 +41,11 @@
       .attr('x2', innerW)
       .attr('y1', y(0))
       .attr('y2', y(0))
-      .attr('stroke', axisColor)
+      .attr('stroke', theme.axis)
       .attr('stroke-width', 1);
 
     // Drawdown bars
-    drawdowns.forEach((d) => {
+    MARKET_DRAWDOWNS.forEach((d) => {
       const barWidth = Math.max(x(d.recovery) - x(d.year), 8);
 
       g.append('rect')
@@ -77,7 +53,7 @@
         .attr('y', y(0))
         .attr('width', barWidth)
         .attr('height', y(d.drop) - y(0))
-        .attr('fill', redColor)
+        .attr('fill', theme.red)
         .attr('opacity', dark ? 0.25 : 0.3)
         .attr('rx', 2);
 
@@ -86,7 +62,7 @@
         .attr('y', y(d.drop) + 14)
         .attr('text-anchor', 'middle')
         .attr('font-size', '10px')
-        .attr('fill', redColor)
+        .attr('fill', theme.red)
         .attr('font-weight', 'bold')
         .text(`${d.drop}%`);
 
@@ -95,7 +71,7 @@
         .attr('y', y(0) - 6)
         .attr('text-anchor', 'middle')
         .attr('font-size', '9px')
-        .attr('fill', labelColor)
+        .attr('fill', theme.label)
         .text(d.name);
     });
 
@@ -108,11 +84,7 @@
           .ticks(6)
           .tickFormat((d) => String(d)),
       )
-      .call((sel) => {
-        sel.select('.domain').attr('stroke', axisColor);
-        sel.selectAll('.tick text').attr('fill', tickColor);
-        sel.selectAll('.tick line').attr('stroke', axisColor);
-      });
+      .call((sel) => styleAxis(sel, theme));
 
     g.append('g')
       .call(
@@ -121,11 +93,7 @@
           .ticks(4)
           .tickFormat((d) => `${d}%`),
       )
-      .call((sel) => {
-        sel.select('.domain').attr('stroke', axisColor);
-        sel.selectAll('.tick text').attr('fill', tickColor);
-        sel.selectAll('.tick line').attr('stroke', axisColor);
-      });
+      .call((sel) => styleAxis(sel, theme));
   });
 </script>
 

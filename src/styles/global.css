@@ -8,17 +8,7 @@
   }
 
   body {
-    @apply bg-white text-gray-900 antialiased;
-    font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      Roboto,
-      'Helvetica Neue',
-      Arial,
-      'Noto Sans',
-      sans-serif;
+    @apply bg-white font-sans text-gray-900 antialiased;
     line-height: 1.75;
   }
 

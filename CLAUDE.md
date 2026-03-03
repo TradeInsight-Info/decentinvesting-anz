@@ -89,6 +89,4 @@ Cloudflare Pages with static assets. `wrangler.jsonc` points `assets.directory` 
 
 ## Linear
 
-- **Project**: decentinvesting (team: Joellewis)
-- Reference issue IDs (e.g., JOE-42) in commit messages and PR titles
-- Issues discovered during implementation go to Triage with `agent-drafted` label
+Linear project: **decentinvesting** (team: Joellewis)

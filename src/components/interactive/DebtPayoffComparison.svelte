@@ -19,8 +19,6 @@
   function updateDebt(index: number, field: keyof DebtEntry, value: string) {
     const parsed = field === 'name' ? value : Number(value);
     debts[index] = { ...debts[index], [field]: parsed };
-    // force reactivity
-    debts = [...debts];
   }
 
   function addDebt() {

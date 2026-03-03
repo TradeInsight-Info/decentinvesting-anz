@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
+  import { isDark, chartTheme, styleAxis, setupChartObservers } from '@/lib/chart-utils';
 
   let {
     data,
@@ -14,41 +15,23 @@
 
   let container: HTMLElement;
   let width = $state(600);
+  let dark = $state(false);
   const height = 300;
   const margin = { top: 20, right: 80, bottom: 40, left: 70 };
 
-  function isDark() {
-    return document.documentElement.classList.contains('dark');
-  }
-
   onMount(() => {
-    const observer = new ResizeObserver((entries) => {
-      width = entries[0].contentRect.width;
-    });
-    observer.observe(container);
-
-    const themeObserver = new MutationObserver(() => {
-      width = container.getBoundingClientRect().width;
-    });
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-
-    return () => {
-      observer.disconnect();
-      themeObserver.disconnect();
-    };
+    dark = isDark();
+    return setupChartObservers(
+      container,
+      (w) => (width = w),
+      () => (dark = isDark()),
+    );
   });
 
   $effect(() => {
     if (!container || data.length === 0) return;
 
-    const dark = isDark();
-    const axisColor = dark ? '#4b5563' : '#e5e7eb';
-    const tickColor = dark ? '#9ca3af' : '#6b7280';
-    const greenColor = dark ? '#6aad7a' : '#4a7c59';
-    const redColor = dark ? '#f87171' : '#ef4444';
+    const theme = chartTheme(dark);
 
     const svg = d3.select(container).select('svg');
     svg.selectAll('*').remove();
@@ -86,14 +69,14 @@
       .y1((d) => y(d.valueA))
       .curve(d3.curveMonotoneX);
 
-    g.append('path').datum(data).attr('d', area).attr('fill', redColor).attr('opacity', 0.1);
+    g.append('path').datum(data).attr('d', area).attr('fill', theme.red).attr('opacity', 0.1);
 
     // Low fee line
     g.append('path')
       .datum(data)
       .attr('d', lineA)
       .attr('fill', 'none')
-      .attr('stroke', greenColor)
+      .attr('stroke', theme.green)
       .attr('stroke-width', 2.5);
 
     // High fee line
@@ -101,7 +84,7 @@
       .datum(data)
       .attr('d', lineB)
       .attr('fill', 'none')
-      .attr('stroke', redColor)
+      .attr('stroke', theme.red)
       .attr('stroke-width', 2.5)
       .attr('stroke-dasharray', '6 3');
 
@@ -112,7 +95,7 @@
       .attr('y', y(last.valueA))
       .attr('dy', '0.35em')
       .attr('font-size', '11px')
-      .attr('fill', greenColor)
+      .attr('fill', theme.green)
       .text(`${feeA}%`);
 
     g.append('text')
@@ -120,7 +103,7 @@
       .attr('y', y(last.valueB))
       .attr('dy', '0.35em')
       .attr('font-size', '11px')
-      .attr('fill', redColor)
+      .attr('fill', theme.red)
       .text(`${feeB}%`);
 
     // Axes
@@ -132,11 +115,7 @@
           .ticks(Math.min(data.length - 1, 10))
           .tickFormat((d) => `${d}y`),
       )
-      .call((sel) => {
-        sel.select('.domain').attr('stroke', axisColor);
-        sel.selectAll('.tick text').attr('fill', tickColor);
-        sel.selectAll('.tick line').attr('stroke', axisColor);
-      });
+      .call((sel) => styleAxis(sel, theme));
 
     g.append('g')
       .call(
@@ -145,11 +124,7 @@
           .ticks(5)
           .tickFormat((d) => `$${d3.format('.2s')(d as number)}`),
       )
-      .call((sel) => {
-        sel.select('.domain').attr('stroke', axisColor);
-        sel.selectAll('.tick text').attr('fill', tickColor);
-        sel.selectAll('.tick line').attr('stroke', axisColor);
-      });
+      .call((sel) => styleAxis(sel, theme));
   });
 </script>
 

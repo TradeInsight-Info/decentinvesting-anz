@@ -87,7 +87,7 @@ export function emergencyFundTiers(
   };
 }
 
-/** Debt payoff simulation — returns monthly snapshots for avalanche or snowball. */
+/** Debt payoff simulation for avalanche or snowball method. */
 export function debtPayoff(
   debts: { name: string; balance: number; rate: number; minimum: number }[],
   extraPayment: number,
@@ -95,7 +95,6 @@ export function debtPayoff(
 ): {
   months: number;
   totalInterest: number;
-  timeline: { month: number; remaining: number; paid: string[] }[];
 } {
   const working = debts.map((d) => ({ ...d, remaining: d.balance }));
   const sorted =
@@ -105,12 +104,11 @@ export function debtPayoff(
 
   let totalInterest = 0;
   let month = 0;
-  const timeline: { month: number; remaining: number; paid: string[] }[] = [];
-  const paidOff: string[] = [];
 
   while (sorted.some((d) => d.remaining > 0) && month < 600) {
     month++;
     let extra = extraPayment;
+    const target = sorted.find((d) => d.remaining > 0);
 
     for (const debt of sorted) {
       if (debt.remaining <= 0) continue;
@@ -120,31 +118,24 @@ export function debtPayoff(
 
       const payment = Math.min(
         debt.remaining,
-        debt.minimum + (sorted.find((d) => d.remaining > 0) === debt ? extra : 0),
+        debt.minimum + (debt === target ? extra : 0),
       );
       debt.remaining -= payment;
 
-      if (sorted.find((d) => d.remaining > 0) === debt) {
+      if (debt === target) {
         extra = Math.max(0, extra - (payment - debt.minimum));
       }
 
       if (debt.remaining <= 0.01) {
         debt.remaining = 0;
-        if (!paidOff.includes(debt.name)) {
-          paidOff.push(debt.name);
-          extra += debt.minimum;
-        }
+        extra += debt.minimum;
       }
     }
-
-    const totalRemaining = sorted.reduce((sum, d) => sum + d.remaining, 0);
-    timeline.push({ month, remaining: Math.round(totalRemaining), paid: [...paidOff] });
   }
 
   return {
     months: month,
     totalInterest: Math.round(totalInterest),
-    timeline,
   };
 }
 
@@ -177,15 +168,12 @@ export function rothVsTraditional(
   years: number,
 ): { rothFinal: number; traditionalFinal: number; rothAdvantage: number } {
   // Roth: contribute after-tax, grow tax-free
+  // Traditional: contribute pre-tax, grow tax-deferred, pay tax on withdrawal
   const rothContribution = annualContribution * (1 - currentTaxRate);
   let rothBalance = 0;
-  for (let y = 0; y < years; y++) {
-    rothBalance = (rothBalance + rothContribution) * (1 + annualReturn);
-  }
-
-  // Traditional: contribute pre-tax, grow tax-deferred, pay tax on withdrawal
   let tradBalance = 0;
   for (let y = 0; y < years; y++) {
+    rothBalance = (rothBalance + rothContribution) * (1 + annualReturn);
     tradBalance = (tradBalance + annualContribution) * (1 + annualReturn);
   }
   const tradAfterTax = tradBalance * (1 - futureTaxRate);

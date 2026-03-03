@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
+  import { isDark, chartTheme, styleAxis, setupChartObservers } from '@/lib/chart-utils';
 
   let {
     data,
@@ -12,40 +13,23 @@
 
   let container: HTMLElement;
   let width = $state(600);
+  let dark = $state(false);
   const height = 300;
   const margin = { top: 20, right: 20, bottom: 40, left: 70 };
 
-  function isDark() {
-    return document.documentElement.classList.contains('dark');
-  }
-
   onMount(() => {
-    const observer = new ResizeObserver((entries) => {
-      width = entries[0].contentRect.width;
-    });
-    observer.observe(container);
-
-    const themeObserver = new MutationObserver(() => {
-      // Re-trigger effect on theme change
-      width = container.getBoundingClientRect().width;
-    });
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-
-    return () => {
-      observer.disconnect();
-      themeObserver.disconnect();
-    };
+    dark = isDark();
+    return setupChartObservers(
+      container,
+      (w) => (width = w),
+      () => (dark = isDark()),
+    );
   });
 
   $effect(() => {
     if (!container || data.length === 0) return;
 
-    const dark = isDark();
-    const axisColor = dark ? '#4b5563' : '#e5e7eb';
-    const tickColor = dark ? '#9ca3af' : '#6b7280';
+    const theme = chartTheme(dark);
 
     const svg = d3.select(container).select('svg');
     svg.selectAll('*').remove();
@@ -84,7 +68,7 @@
     g.append('path')
       .datum(contribLine)
       .attr('d', areaContrib)
-      .attr('fill', '#a8c2af')
+      .attr('fill', theme.greenMuted)
       .attr('opacity', dark ? 0.3 : 0.5);
 
     // Growth area
@@ -98,7 +82,7 @@
     g.append('path')
       .datum(data)
       .attr('d', areaGrowth)
-      .attr('fill', dark ? '#6aad7a' : '#4a7c59')
+      .attr('fill', theme.green)
       .attr('opacity', 0.3);
 
     // Balance line
@@ -112,7 +96,7 @@
       .datum(data)
       .attr('d', line)
       .attr('fill', 'none')
-      .attr('stroke', dark ? '#6aad7a' : '#4a7c59')
+      .attr('stroke', theme.green)
       .attr('stroke-width', 2.5);
 
     // Axes
@@ -124,11 +108,7 @@
           .ticks(Math.min(data.length - 1, 10))
           .tickFormat((d) => `${d}y`),
       )
-      .call((g) => {
-        g.select('.domain').attr('stroke', axisColor);
-        g.selectAll('.tick text').attr('fill', tickColor);
-        g.selectAll('.tick line').attr('stroke', axisColor);
-      });
+      .call((sel) => styleAxis(sel, theme));
 
     g.append('g')
       .call(
@@ -137,11 +117,7 @@
           .ticks(5)
           .tickFormat((d) => `$${d3.format('.2s')(d as number)}`),
       )
-      .call((g) => {
-        g.select('.domain').attr('stroke', axisColor);
-        g.selectAll('.tick text').attr('fill', tickColor);
-        g.selectAll('.tick line').attr('stroke', axisColor);
-      });
+      .call((sel) => styleAxis(sel, theme));
   });
 </script>
 

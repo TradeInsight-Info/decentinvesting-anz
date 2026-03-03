@@ -77,9 +77,9 @@
       </tr>
     </thead>
     <tbody>
-      {#each result.tiers as tier}
+      {#each result.tiers as tier, i}
         <tr>
-          <td>{result.tiers.indexOf(tier) + 1}</td>
+          <td>{i + 1}</td>
           <td>{tier.name}</td>
           <td class="text-right">{tier.months}</td>
           <td class="text-right">${tier.amount.toLocaleString()}</td>

@@ -20,6 +20,14 @@ export const FUND_EXAMPLES = {
   totalBond: { ticker: 'BND', name: 'Vanguard Total Bond Market ETF', er: 0.0003 },
 } as const;
 
+export const MARKET_DRAWDOWNS = [
+  { name: 'Oil Crisis', year: 1973, drop: -48, recovery: 1980 },
+  { name: 'Black Monday', year: 1987, drop: -34, recovery: 1989 },
+  { name: 'Dot-com', year: 2000, drop: -49, recovery: 2007 },
+  { name: '2008 Crisis', year: 2007, drop: -57, recovery: 2013 },
+  { name: 'COVID', year: 2020, drop: -34, recovery: 2020 },
+] as const;
+
 export const GUIDE_PAGES = [
   { slug: '0-before-you-start', title: 'Before You Start', number: 0 },
   { slug: '1-cash-cushion', title: 'Cash Cushion', number: 1 },

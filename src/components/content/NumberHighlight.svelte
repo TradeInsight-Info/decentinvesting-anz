@@ -15,6 +15,7 @@
 
   let displayValue = $state(0);
   let container: HTMLElement;
+  let animFrameId = 0;
 
   onMount(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -36,7 +37,10 @@
     );
 
     observer.observe(container);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(animFrameId);
+    };
   });
 
   function animate() {
@@ -44,14 +48,13 @@
     function step(now: number) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       displayValue = Math.round(value * eased);
       if (progress < 1) {
-        requestAnimationFrame(step);
+        animFrameId = requestAnimationFrame(step);
       }
     }
-    requestAnimationFrame(step);
+    animFrameId = requestAnimationFrame(step);
   }
 </script>
 

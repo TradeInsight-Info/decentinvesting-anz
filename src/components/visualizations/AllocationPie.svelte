@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
+  import { isDark, chartTheme } from '@/lib/chart-utils';
 
   let {
     slices,
@@ -9,27 +10,26 @@
   } = $props();
 
   let container: HTMLElement;
-
-  function isDark() {
-    return document.documentElement.classList.contains('dark');
-  }
+  let dark = $state(false);
 
   onMount(() => {
-    const themeObserver = new MutationObserver(() => {
-      // Trigger re-render on theme change by reassigning slices reference
-      render();
+    dark = isDark();
+    const themeObs = new MutationObserver(() => {
+      dark = isDark();
     });
-    themeObserver.observe(document.documentElement, {
+    themeObs.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class'],
     });
-    return () => themeObserver.disconnect();
+    return () => themeObs.disconnect();
   });
 
-  function render() {
+  $effect(() => {
     if (!container) return;
 
-    const dark = isDark();
+    const theme = chartTheme(dark);
+    // Read slices to establish reactive dependency
+    const currentSlices = slices;
 
     const svg = d3.select(container).select('svg');
     svg.selectAll('*').remove();
@@ -53,16 +53,16 @@
       .cornerRadius(3);
 
     g.selectAll('path')
-      .data(pie(slices))
+      .data(pie(currentSlices))
       .join('path')
       .attr('d', arc)
       .attr('fill', (d) => d.data.color)
-      .attr('stroke', dark ? '#030712' : 'white')
+      .attr('stroke', theme.pieBorder)
       .attr('stroke-width', 2);
 
     // Center label
-    const total = slices.reduce((sum, s) => sum + s.value, 0);
-    const stockPct = slices
+    const total = currentSlices.reduce((sum, s) => sum + s.value, 0);
+    const stockPct = currentSlices
       .filter((s) => s.label.includes('Stock'))
       .reduce((sum, s) => sum + s.value, 0);
     g.append('text')
@@ -70,19 +70,15 @@
       .attr('dy', '-0.2em')
       .attr('font-size', '24px')
       .attr('font-weight', 'bold')
-      .attr('fill', dark ? '#f3f4f6' : '#1f2937')
+      .attr('fill', theme.text)
       .text(`${stockPct}/${total - stockPct}`);
 
     g.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '1.2em')
       .attr('font-size', '11px')
-      .attr('fill', dark ? '#9ca3af' : '#6b7280')
+      .attr('fill', theme.label)
       .text('stocks / bonds');
-  }
-
-  $effect(() => {
-    render();
   });
 </script>
 

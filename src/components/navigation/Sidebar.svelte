@@ -1,7 +1,7 @@
 <script lang="ts">
-  type Page = { slug: string; title: string; number: number };
+  type Page = { readonly slug: string; readonly title: string; readonly number: number };
 
-  let { pages, currentSlug }: { pages: Page[]; currentSlug: string } = $props();
+  let { pages, currentSlug }: { pages: readonly Page[]; currentSlug: string } = $props();
 </script>
 
 <nav class="text-sm" aria-label="Guide navigation">
