@@ -79,7 +79,7 @@
 
   {#if result.overCap}
     <p role="alert" class="mt-3 text-sm font-medium text-amber-700 dark:text-amber-300">
-      Your employer's {AU_SUPER.guaranteeRate * 100}% ({AU_FINANCIAL_YEAR}) super plus this
+      Your employer's {AU_SUPER.guaranteeRate * 100}% (from 1 Jul 2025) super plus this
       sacrifice comes to ${result.concessionalTotal.toLocaleString()}, over the ${AU_SUPER.concessionalCap.toLocaleString()}
       ({AU_FINANCIAL_YEAR}) concessional cap. Amounts over the cap are taxed at your marginal rate,
       unless you have unused cap from earlier years to carry forward.
