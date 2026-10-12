@@ -12,13 +12,28 @@ export const AU_RESIDENT_TAX_BRACKETS = [
 
 export const AU_MEDICARE_LEVY = 0.02;
 
+export const AU_LOW_INCOME_TAX_OFFSET = {
+  max: 700,
+  firstTaperFrom: 37_500,
+  firstTaperRate: 0.05,
+  secondTaperFrom: 45_000,
+  secondTaperRate: 0.015,
+} as const;
+
 export const AU_SUPER = {
   guaranteeRate: 0.12,
+  maximumContributionBase: 270_830,
   concessionalCap: 32_500,
   contributionsTax: 0.15,
   division293Threshold: 250_000,
   lowIncomeOffsetMax: 500,
   lowIncomeOffsetIncomeLimit: 37_000,
+} as const;
+
+export const EXAMPLE_CASH_RATES = {
+  asAt: 'Oct 2026',
+  onlineSaver: 0.04,
+  termDeposit: 0.0425,
 } as const;
 
 export const MARKET_DRAWDOWNS = [

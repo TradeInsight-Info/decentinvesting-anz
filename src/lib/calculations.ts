@@ -3,7 +3,13 @@
  * All functions are deterministic with no side effects.
  */
 
-import { AU_MEDICARE_LEVY, AU_RESIDENT_TAX_BRACKETS, AU_SUPER } from '@/lib/constants';
+import {
+  AU_LOW_INCOME_TAX_OFFSET,
+  AU_MEDICARE_LEVY,
+  AU_RESIDENT_TAX_BRACKETS,
+  AU_SUPER,
+  EXAMPLE_CASH_RATES,
+} from '@/lib/constants';
 
 /** Compound growth with regular contributions, returning yearly snapshots. */
 export function compoundGrowth(
@@ -12,7 +18,7 @@ export function compoundGrowth(
   annualRate: number,
   years: number,
 ): { year: number; balance: number }[] {
-  const monthlyRate = annualRate / 12;
+  const monthlyRate = (1 + annualRate) ** (1 / 12) - 1;
   const results: { year: number; balance: number }[] = [{ year: 0, balance: principal }];
   let balance = principal;
 
@@ -78,13 +84,13 @@ export function emergencyFundTiers(
       name: 'Online or bonus saver',
       months: tier2Months,
       amount: monthlyExpenses * tier2Months,
-      rate: 0.04,
+      rate: EXAMPLE_CASH_RATES.onlineSaver,
     },
     {
       name: 'Term deposits',
       months: tier3Months,
       amount: monthlyExpenses * tier3Months,
-      rate: 0.0425,
+      rate: EXAMPLE_CASH_RATES.termDeposit,
     },
   ].filter((t) => t.months > 0);
 
@@ -165,7 +171,16 @@ export function suggestAllocation(
   return { stocks, bonds };
 }
 
-/** Income tax plus Medicare levy for an Australian resident (low-income levy reductions ignored). */
+function lowIncomeTaxOffset(taxableIncome: number): number {
+  const { max, firstTaperFrom, firstTaperRate, secondTaperFrom, secondTaperRate } =
+    AU_LOW_INCOME_TAX_OFFSET;
+  const firstTaper =
+    Math.max(0, Math.min(taxableIncome, secondTaperFrom) - firstTaperFrom) * firstTaperRate;
+  const secondTaper = Math.max(0, taxableIncome - secondTaperFrom) * secondTaperRate;
+  return Math.max(0, max - firstTaper - secondTaper);
+}
+
+/** Income tax less the Low Income Tax Offset, plus Medicare levy, for an Australian resident (low-income levy reductions ignored). */
 export function australianIncomeTax(taxableIncome: number): number {
   let tax = 0;
   for (let i = 0; i < AU_RESIDENT_TAX_BRACKETS.length; i++) {
@@ -173,7 +188,8 @@ export function australianIncomeTax(taxableIncome: number): number {
     const to = AU_RESIDENT_TAX_BRACKETS[i + 1]?.from ?? Infinity;
     tax += Math.max(0, Math.min(taxableIncome, to) - from) * rate;
   }
-  return tax + Math.max(0, taxableIncome) * AU_MEDICARE_LEVY;
+  const incomeTax = Math.max(0, tax - lowIncomeTaxOffset(taxableIncome));
+  return incomeTax + Math.max(0, taxableIncome) * AU_MEDICARE_LEVY;
 }
 
 /** Low Income Super Tax Offset: refunds the 15% contributions tax, capped, for low incomes. */
@@ -197,7 +213,8 @@ export function salarySacrificeComparison(
 } {
   const takeHomeIfPaid =
     sacrifice - (australianIncomeTax(salary) - australianIncomeTax(salary - sacrifice));
-  const employerSuper = salary * AU_SUPER.guaranteeRate;
+  const employerSuper =
+    Math.min(salary, AU_SUPER.maximumContributionBase) * AU_SUPER.guaranteeRate;
   const concessionalTotal = employerSuper + sacrifice;
   const lowIncomeOffset =
     lowIncomeSuperTaxOffset(salary, concessionalTotal) -
@@ -211,6 +228,6 @@ export function salarySacrificeComparison(
     sacrificeAdvantage: Math.round(intoSuperIfSacrificed - takeHomeIfPaid),
     concessionalTotal: Math.round(concessionalTotal),
     overCap: concessionalTotal > AU_SUPER.concessionalCap,
-    division293Risk: salary + salary * AU_SUPER.guaranteeRate > AU_SUPER.division293Threshold,
+    division293Risk: salary + employerSuper > AU_SUPER.division293Threshold,
   };
 }

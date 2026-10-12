@@ -97,8 +97,8 @@
   <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">
     Simplified: compares {AU_SUPER.contributionsTax * 100}% ({AU_FINANCIAL_YEAR}) contributions tax
     with your marginal tax rate ({AU_FINANCIAL_YEAR}) plus the 2% Medicare levy ({AU_FINANCIAL_YEAR}).
-    It includes the Low Income Super Tax Offset ({AU_FINANCIAL_YEAR}), but ignores Medicare levy
-    reductions for low incomes and HELP repayments. Rates are for Australian residents. Check
+    It includes the Low Income Tax Offset and the Low Income Super Tax Offset ({AU_FINANCIAL_YEAR}),
+    but ignores Medicare levy reductions for low incomes and HELP repayments. Rates are for Australian residents. Check
     ato.gov.au, or ask a registered tax agent.
   </p>
 </div>

@@ -31,6 +31,16 @@ describe('SalarySacrifice', () => {
     expect(screen.queryByText(/Low Income Super Tax Offset,/)).toBeNull();
   });
 
+  test('on a $50,000 salary, the Low Income Tax Offset tapering away makes sacrificing $925 better', async () => {
+    render(SalarySacrifice);
+
+    await setAmount('Yearly salary (before tax)', 50000);
+
+    expect(screen.getByText('$4,250')).toBeTruthy();
+    expect(screen.getByText('$3,325')).toBeTruthy();
+    expect(screen.getByText('$925')).toBeTruthy();
+  });
+
   test('on a low income, the Low Income Super Tax Offset adds to super but pay still comes out ahead', async () => {
     render(SalarySacrifice);
 

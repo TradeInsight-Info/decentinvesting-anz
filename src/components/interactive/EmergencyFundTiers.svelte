@@ -1,5 +1,6 @@
 <script lang="ts">
   import { emergencyFundTiers } from '@/lib/calculations';
+  import { EXAMPLE_CASH_RATES } from '@/lib/constants';
   import CurrencyInput from '@/components/ui/CurrencyInput.svelte';
 
   let monthlyExpenses = $state(4500);
@@ -73,7 +74,7 @@
         <th class="text-left">Where</th>
         <th class="text-right">Months</th>
         <th class="text-right">Amount</th>
-        <th class="text-right">Example rate</th>
+        <th class="text-right">Example rate ({EXAMPLE_CASH_RATES.asAt})</th>
       </tr>
     </thead>
     <tbody>
