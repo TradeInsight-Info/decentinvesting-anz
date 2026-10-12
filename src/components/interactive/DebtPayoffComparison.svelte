@@ -7,7 +7,7 @@
   let debts = $state<DebtEntry[]>([
     { name: 'Credit card', balance: 6000, rate: 0.22, minimum: 150 },
     { name: 'Car loan', balance: 4000, rate: 0.06, minimum: 200 },
-    { name: 'Student loan', balance: 12000, rate: 0.05, minimum: 150 },
+    { name: 'Personal loan', balance: 12000, rate: 0.1, minimum: 250 },
   ]);
 
   let extraPayment = $state(500);

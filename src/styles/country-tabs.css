@@ -1,0 +1,8 @@
+html[data-country='nz'] [data-country-panel='au']:not([hidden]) {
+  display: none;
+}
+
+html[data-country='nz'] [data-country-panel='nz'][hidden] {
+  display: block;
+  content-visibility: visible;
+}

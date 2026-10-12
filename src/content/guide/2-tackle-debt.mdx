@@ -5,6 +5,7 @@ order: 2
 ---
 
 import Callout from '@/components/content/Callout.astro';
+import CountryTabs from '@/components/content/CountryTabs.astro';
 import Disclosure from '@/components/content/Disclosure.svelte';
 import DebtPayoffComparison from '@/components/interactive/DebtPayoffComparison.svelte';
 
@@ -16,11 +17,40 @@ Not all debt is created equal. A 3% mortgage on an appreciating house is fundame
 
 ## Good Debt vs Expensive Debt
 
-| Type                   | Typical rate | Tax deductible? | Example                                    |
-| ---------------------- | ------------ | --------------- | ------------------------------------------ |
-| Low-cost / "good" debt | 2-6%         | Often yes       | Mortgage, federal student loans            |
-| Medium-cost debt       | 6-10%        | Sometimes       | Private student loans, some auto loans     |
-| Expensive / "bad" debt | 10-30%+      | No              | Credit cards, payday loans, personal loans |
+| Type                   | Example                                    |
+| ---------------------- | ------------------------------------------ |
+| Low-cost / "good" debt | Home loan                                  |
+| Medium-cost debt       | Some car loans                             |
+| Expensive / "bad" debt | Credit cards, payday loans, personal loans |
+
+Compare the interest rate on each debt with the rule above. Rates change with the cash rate, so check what you're actually paying.
+
+Interest on the home you live in is **not tax deductible** in Australia or New Zealand. Only the part of a loan used to earn income, such as a rental property, can be.
+
+<CountryTabs>
+<div slot="au">
+
+<Disclosure client:load title="Student loans: HELP">
+
+HELP debts don't work like ordinary debt, so they usually come last when you're choosing what to pay off early.
+
+The balance is indexed each 1 June to the lower of CPI or wage growth (2.8% on 1 Jun 2026). You repay through the tax system once your income is over **$69,528 (2026-27)**. All HELP debts were cut by 20% (balances on 1 Jun 2025).
+
+</Disclosure>
+
+</div>
+<div slot="nz">
+
+<Disclosure client:load title="Student loans">
+
+NZ student loans don't work like ordinary debt, so they usually come last when you're choosing what to pay off early.
+
+Your loan is interest-free while you're NZ-based. You repay 12 cents of every dollar you earn over **$24,128 (2026-27)**. If you move overseas, interest starts from the day after you leave.
+
+</Disclosure>
+
+</div>
+</CountryTabs>
 
 **Expensive debt is a financial emergency.** A credit card at 24% APR means every $1,000 you carry costs you $240/year in interest. No investment reliably returns 24%. Paying off that card _is_ the best investment you can make.
 
@@ -28,7 +58,7 @@ Not all debt is created equal. A 3% mortgage on an appreciating house is fundame
 
 Before you throw every spare dollar at debt:
 
-1. **Build Tier 1 of your emergency fund first** — at least 1 month of expenses in checking.
+1. **Build Tier 1 of your emergency fund first** — at least 1 month of expenses in your everyday account.
 2. **Keep making minimum payments on everything** — never miss a minimum payment.
 3. **Then attack the debt** — with any money above minimums, use one of the strategies below.
 
@@ -56,11 +86,11 @@ Pay minimums on everything, then put all extra money toward the debt with the **
 
 | Debt interest rate | What to do                                                                   |
 | ------------------ | ---------------------------------------------------------------------------- |
-| **Above 8%**       | Pay it off before investing (beyond employer match)                          |
+| **Above 8%**       | Pay it off before investing (beyond your default KiwiSaver contributions)    |
 | **5-8%**           | Judgment call — consider splitting extra money 50/50                         |
-| **Below 5%**       | Generally fine to invest while making payments, especially if tax-deductible |
+| **Below 5%**       | Generally fine to invest while making payments                               |
 
-**Always capture your employer 401k match first**, regardless of debt. An employer match is a guaranteed 50-100% instant return — no debt costs that much.
+**In New Zealand, keep contributing to KiwiSaver at least at the default rate**, regardless of debt. Your employer's contribution and the government's 25c per $1 (from 1 Jul 2025) are an instant return that no debt costs. **In Australia**, your employer's Super Guarantee is paid regardless, but it's usually better to clear expensive debt before you salary sacrifice extra into super.
 
 <Callout type="tip" title="The hybrid approach">
   If you have debt in the 5-8% gray zone and can't decide, split your extra money: half toward the
@@ -69,20 +99,23 @@ Pay minimums on everything, then put all extra money toward the debt with the **
 
 ## Your Debt-to-Income Ratio
 
-Lenders use your **debt-to-income (DTI) ratio** to determine how much you can borrow:
+In Australia and New Zealand, **debt-to-income (DTI)** usually means your total debt as a multiple of your gross yearly income:
 
-**DTI = Total monthly debt payments ÷ Gross monthly income**
+**DTI = Total debt ÷ Gross yearly income**
 
-| DTI       | What it means                                              |
-| --------- | ---------------------------------------------------------- |
-| Under 20% | Comfortable — plenty of room                               |
-| 20-36%    | Manageable, but watch it                                   |
-| 36-43%    | Stretching — hard to qualify for best mortgage rates       |
-| Above 43% | Risky — most conventional lenders won't approve a mortgage |
+For example, $540,000 of debt on a $90,000 income is a DTI of 6. Regulators limit how much lending banks can do at high DTIs:
+
+| Country         | Limit on banks                                                                                              |
+| --------------- | ----------------------------------------------------------------------------------------------------------- |
+| **Australia**   | At most 20% of new home lending at a DTI of 6 or more (from 1 Feb 2026, [APRA](https://www.apra.gov.au/news-and-publications/activating-debt-income-limits-macroprudential-policy-tool)). Banks also test that you could afford repayments at 3 percentage points above your loan rate (as at Oct 2026) |
+| **New Zealand** | At most 20% of owner-occupier lending at a DTI over 6, and 20% of investor lending at a DTI over 7 (from 1 Jul 2024, [RBNZ](https://www.rbnz.govt.nz/news-and-events/news/2024/05/reserve-bank-activates-debt-to-income-restrictions)) |
+
+A high DTI doesn't automatically mean you'll be refused, but it leaves less room if rates rise or your income falls.
 
 <Callout type="warning">
-  - **Ignoring employer match to pay off low-rate debt** — a 50% match on your 401k beats paying off
-  a 5% loan every time. - **Consolidating debt into a longer term** — a lower monthly payment at a
+  - **Cutting KiwiSaver below the default rate to pay off low-rate debt** — you'd give up your
+  employer's contribution and the government contribution, which beat paying off a 5% loan every
+  time. - **Consolidating debt into a longer term** — a lower monthly payment at a
   lower rate but over 10 more years can mean *more* total interest paid. Always compare total cost,
   not just the monthly number. - **Paying off the mortgage early when you have credit card debt** —
   always attack the highest rate first. - **Using home equity to pay off credit cards, then running

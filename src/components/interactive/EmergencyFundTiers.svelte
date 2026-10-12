@@ -73,7 +73,7 @@
         <th class="text-left">Where</th>
         <th class="text-right">Months</th>
         <th class="text-right">Amount</th>
-        <th class="text-right">Yield</th>
+        <th class="text-right">Example rate</th>
       </tr>
     </thead>
     <tbody>
@@ -97,7 +97,7 @@
       </p>
     </div>
     <div>
-      <p class="text-xs text-gray-500 dark:text-gray-400">Blended yield</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">Blended rate (example)</p>
       <p class="text-lg font-bold text-sage-600 dark:text-sage-400">{result.blendedYield}%</p>
     </div>
     <div>

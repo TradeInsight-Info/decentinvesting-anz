@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import '@/styles/country-tabs.css';
 import Footer from '@/components/layout/Footer.astro';
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
 const { title, description = 'Simple steps to help most people start and stay safe.' } =
   Astro.props;
 const fullTitle = title === 'Decent Investing' ? title : `${title} | Decent Investing`;
-const siteUrl = Astro.site?.origin ?? 'https://decentinvesting.com';
+const siteUrl = Astro.site?.origin ?? 'https://decentinvesting.tradeinsight.info';
 ---
 
 <!doctype html>
@@ -49,6 +50,11 @@ const siteUrl = Astro.site?.origin ?? 'https://decentinvesting.com';
           document.documentElement.classList.add('dark');
         }
       })();
+    </script>
+    <script is:inline>
+      if (localStorage.getItem('country') === 'nz') {
+        document.documentElement.dataset.country = 'nz';
+      }
     </script>
   </head>
   <body class="flex min-h-screen flex-col">

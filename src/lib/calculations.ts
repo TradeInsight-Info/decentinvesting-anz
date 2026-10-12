@@ -3,6 +3,8 @@
  * All functions are deterministic with no side effects.
  */
 
+import { AU_MEDICARE_LEVY, AU_RESIDENT_TAX_BRACKETS, AU_SUPER } from '@/lib/constants';
+
 /** Compound growth with regular contributions, returning yearly snapshots. */
 export function compoundGrowth(
   principal: number,
@@ -66,13 +68,23 @@ export function emergencyFundTiers(
   const tier3Months = Math.max(months - 5, 0);
 
   const tiers = [
-    { name: 'Checking', months: tier1Months, amount: monthlyExpenses * tier1Months, rate: 0.0001 },
-    { name: 'HYSA', months: tier2Months, amount: monthlyExpenses * tier2Months, rate: 0.045 },
     {
-      name: 'T-Bills / CDs',
+      name: 'Everyday account',
+      months: tier1Months,
+      amount: monthlyExpenses * tier1Months,
+      rate: 0,
+    },
+    {
+      name: 'Online or bonus saver',
+      months: tier2Months,
+      amount: monthlyExpenses * tier2Months,
+      rate: 0.04,
+    },
+    {
+      name: 'Term deposits',
       months: tier3Months,
       amount: monthlyExpenses * tier3Months,
-      rate: 0.05,
+      rate: 0.0425,
     },
   ].filter((t) => t.months > 0);
 
@@ -116,10 +128,7 @@ export function debtPayoff(
       totalInterest += interest;
       debt.remaining += interest;
 
-      const payment = Math.min(
-        debt.remaining,
-        debt.minimum + (debt === target ? extra : 0),
-      );
+      const payment = Math.min(debt.remaining, debt.minimum + (debt === target ? extra : 0));
       debt.remaining -= payment;
 
       if (debt === target) {
@@ -143,7 +152,7 @@ export function debtPayoff(
 export function suggestAllocation(
   age: number,
   riskTolerance: number, // 0-100 scale
-): { stocks: number; bonds: number; usStocks: number; intlStocks: number } {
+): { stocks: number; bonds: number } {
   // Base: 110 - age = equity %
   const baseEquity = Math.max(20, Math.min(95, 110 - age));
 
@@ -152,35 +161,55 @@ export function suggestAllocation(
   const stocks = Math.round(Math.max(20, Math.min(95, baseEquity + riskAdjustment)));
   const bonds = 100 - stocks;
 
-  // US/Intl split: ~60/40 by global market cap
-  const usStocks = Math.round(stocks * 0.6);
-  const intlStocks = stocks - usStocks;
-
-  return { stocks, bonds, usStocks, intlStocks };
+  return { stocks, bonds };
 }
 
-/** Roth vs Traditional comparison — simplified. */
-export function rothVsTraditional(
-  annualContribution: number,
-  currentTaxRate: number,
-  futureTaxRate: number,
-  annualReturn: number,
-  years: number,
-): { rothFinal: number; traditionalFinal: number; rothAdvantage: number } {
-  // Roth: contribute after-tax, grow tax-free
-  // Traditional: contribute pre-tax, grow tax-deferred, pay tax on withdrawal
-  const rothContribution = annualContribution * (1 - currentTaxRate);
-  let rothBalance = 0;
-  let tradBalance = 0;
-  for (let y = 0; y < years; y++) {
-    rothBalance = (rothBalance + rothContribution) * (1 + annualReturn);
-    tradBalance = (tradBalance + annualContribution) * (1 + annualReturn);
+/** Income tax plus Medicare levy for an Australian resident (low-income levy reductions ignored). */
+export function australianIncomeTax(taxableIncome: number): number {
+  let tax = 0;
+  for (let i = 0; i < AU_RESIDENT_TAX_BRACKETS.length; i++) {
+    const { from, rate } = AU_RESIDENT_TAX_BRACKETS[i];
+    const to = AU_RESIDENT_TAX_BRACKETS[i + 1]?.from ?? Infinity;
+    tax += Math.max(0, Math.min(taxableIncome, to) - from) * rate;
   }
-  const tradAfterTax = tradBalance * (1 - futureTaxRate);
+  return tax + Math.max(0, taxableIncome) * AU_MEDICARE_LEVY;
+}
+
+/** Low Income Super Tax Offset: refunds the 15% contributions tax, capped, for low incomes. */
+function lowIncomeSuperTaxOffset(adjustedTaxableIncome: number, concessional: number): number {
+  if (adjustedTaxableIncome > AU_SUPER.lowIncomeOffsetIncomeLimit) return 0;
+  return Math.min(AU_SUPER.lowIncomeOffsetMax, concessional * AU_SUPER.contributionsTax);
+}
+
+/** Salary sacrifice into super vs taking the same amount as pay, for one year. */
+export function salarySacrificeComparison(
+  salary: number,
+  sacrifice: number,
+): {
+  takeHomeIfPaid: number;
+  intoSuperIfSacrificed: number;
+  lowIncomeOffset: number;
+  sacrificeAdvantage: number;
+  concessionalTotal: number;
+  overCap: boolean;
+  division293Risk: boolean;
+} {
+  const takeHomeIfPaid =
+    sacrifice - (australianIncomeTax(salary) - australianIncomeTax(salary - sacrifice));
+  const employerSuper = salary * AU_SUPER.guaranteeRate;
+  const concessionalTotal = employerSuper + sacrifice;
+  const lowIncomeOffset =
+    lowIncomeSuperTaxOffset(salary, concessionalTotal) -
+    lowIncomeSuperTaxOffset(salary, employerSuper);
+  const intoSuperIfSacrificed = sacrifice * (1 - AU_SUPER.contributionsTax) + lowIncomeOffset;
 
   return {
-    rothFinal: Math.round(rothBalance),
-    traditionalFinal: Math.round(tradAfterTax),
-    rothAdvantage: Math.round(rothBalance - tradAfterTax),
+    takeHomeIfPaid: Math.round(takeHomeIfPaid),
+    intoSuperIfSacrificed: Math.round(intoSuperIfSacrificed),
+    lowIncomeOffset: Math.round(lowIncomeOffset),
+    sacrificeAdvantage: Math.round(intoSuperIfSacrificed - takeHomeIfPaid),
+    concessionalTotal: Math.round(concessionalTotal),
+    overCap: concessionalTotal > AU_SUPER.concessionalCap,
+    division293Risk: salary + salary * AU_SUPER.guaranteeRate > AU_SUPER.division293Threshold,
   };
 }

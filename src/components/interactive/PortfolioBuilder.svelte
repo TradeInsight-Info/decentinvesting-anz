@@ -12,9 +12,12 @@
   );
 
   const slices = $derived([
-    { label: 'US Stocks (VTI)', value: allocation.usStocks, color: '#4a7c59' },
-    { label: 'Intl Stocks (VXUS)', value: allocation.intlStocks, color: '#6aad7a' },
-    { label: 'Bonds (BND)', value: allocation.bonds, color: '#a8c2af' },
+    {
+      label: 'Stocks (global, including your home market)',
+      value: allocation.stocks,
+      color: '#4a7c59',
+    },
+    { label: 'Bonds', value: allocation.bonds, color: '#a8c2af' },
   ]);
 </script>
 
@@ -68,7 +71,7 @@
   </div>
 
   <p class="mt-4 text-xs text-gray-500 dark:text-gray-400">
-    Based on the "110 minus age" rule, adjusted for risk tolerance. Fund tickers are examples —
-    comparable funds exist at Fidelity, Schwab, and other brokerages.
+    Based on the "110 minus age" rule, adjusted for risk tolerance. See the fund examples below for
+    low-cost ways to hold each part in Australia or New Zealand.
   </p>
 </div>

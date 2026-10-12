@@ -11,16 +11,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
     <dl class="space-y-6">
       <div>
-        <dt class="font-semibold text-gray-900 dark:text-gray-100">401k</dt>
-        <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          An employer-sponsored retirement savings plan with tax advantages. Traditional 401k
-          contributions are pre-tax; Roth 401k contributions are after-tax. <a
-            href="/guide/3-investment-accounts">More &rarr;</a
-          >
-        </dd>
-      </div>
-
-      <div>
         <dt class="font-semibold text-gray-900 dark:text-gray-100">Asset allocation</dt>
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
           How your portfolio is divided among different asset classes (stocks, bonds, cash). The
@@ -50,8 +40,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <div>
         <dt class="font-semibold text-gray-900 dark:text-gray-100">Beneficiary</dt>
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          The person designated to receive account assets after the owner's death. Beneficiary
-          designations override wills. <a href="/guide/6-next-steps">More &rarr;</a>
+          The person who receives your money after you die. In Australia, a binding death benefit
+          nomination tells your super fund who to pay; in New Zealand, KiwiSaver is paid out under
+          your will. <a href="/guide/6-next-steps">More &rarr;</a>
         </dd>
       </div>
 
@@ -64,6 +55,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </div>
 
       <div>
+        <dt class="font-semibold text-gray-900 dark:text-gray-100">
+          Capital gains tax (CGT) discount
+        </dt>
+        <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          In Australia, residents who hold an investment for at least 12 months pay tax on only 50%
+          of the gain, for gains up to 30 June 2027. From 1 July 2027 it is replaced by indexing the
+          cost base for inflation. <a href="/guide/3-investment-accounts">More &rarr;</a>
+        </dd>
+      </div>
+
+      <div>
         <dt class="font-semibold text-gray-900 dark:text-gray-100">Compound interest</dt>
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Earning returns on your returns. $10,000 growing at 8% becomes $10,800 after year one,
@@ -72,10 +74,24 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </div>
 
       <div>
+        <dt class="font-semibold text-gray-900 dark:text-gray-100">Concessional contributions</dt>
+        <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          Before-tax money paid into Australian super: your employer's Super Guarantee, salary
+          sacrifice, and personal contributions you claim a deduction for. Taxed at 15% (2026-27) in
+          the fund and capped at $32,500 (2026-27). <a href="/guide/3-investment-accounts"
+            >More &rarr;</a
+          >
+        </dd>
+      </div>
+
+      <div>
         <dt class="font-semibold text-gray-900 dark:text-gray-100">Debt-to-income ratio (DTI)</dt>
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          Total monthly debt payments divided by gross monthly income. Used by lenders to evaluate
-          borrowing capacity. <a href="/guide/2-tackle-debt">More &rarr;</a>
+          Your total debt as a multiple of your gross yearly income. Australian banks face limits on
+          lending at a DTI of 6 or more (from 1 Feb 2026). NZ banks face limits on lending at a DTI
+          over 6 for owner-occupiers and over 7 for investors (from 1 Jul 2024). <a
+            href="/guide/2-tackle-debt">More &rarr;</a
+          >
         </dd>
       </div>
 
@@ -84,6 +100,16 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Spreading investments across many assets to reduce risk. A fund holding 3,000+ stocks is
           highly diversified; a portfolio of 5 tech stocks is not.
+        </dd>
+      </div>
+
+      <div>
+        <dt class="font-semibold text-gray-900 dark:text-gray-100">Diversified fund</dt>
+        <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          A single fund holding shares (and sometimes bonds) across many countries and companies,
+          rebalanced for you. The simplest way to invest. <a href="/guide/4-investment-choices"
+            >More &rarr;</a
+          >
         </dd>
       </div>
 
@@ -114,20 +140,32 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
       <div>
         <dt class="font-semibold text-gray-900 dark:text-gray-100">
-          HYSA (High-Yield Savings Account)
+          FIF (foreign investment fund) rules
         </dt>
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          An online savings account paying significantly more interest than a traditional one. <a
-            href="/guide/1-cash-cushion">More &rarr;</a
+          New Zealand tax rules for foreign shares and funds you hold directly. If their total cost
+          is over $50,000 (as at Oct 2026), you are usually taxed on 5% of their opening value each
+          year. <a href="/guide/3-investment-accounts">More &rarr;</a>
+        </dd>
+      </div>
+
+      <div>
+        <dt class="font-semibold text-gray-900 dark:text-gray-100">Franking credits</dt>
+        <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          Your share of the tax an Australian company has already paid on the profits behind its
+          dividends. You get them back as a tax offset. <a href="/guide/3-investment-accounts"
+            >More &rarr;</a
           >
         </dd>
       </div>
 
       <div>
-        <dt class="font-semibold text-gray-900 dark:text-gray-100">HSA (Health Savings Account)</dt>
+        <dt class="font-semibold text-gray-900 dark:text-gray-100">HELP debt</dt>
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          Triple tax advantage: deductible contributions, tax-free growth, tax-free withdrawals for
-          medical expenses. <a href="/guide/3-investment-accounts">More &rarr;</a>
+          An Australian government study loan. The balance is indexed each 1 June, and you repay it
+          through the tax system once your income is over $69,528 (2026-27). <a
+            href="/guide/2-tackle-debt">More &rarr;</a
+          >
         </dd>
       </div>
 
@@ -142,12 +180,22 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </div>
 
       <div>
+        <dt class="font-semibold text-gray-900 dark:text-gray-100">KiwiSaver</dt>
+        <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          New Zealand's voluntary retirement savings scheme. You, your employer and the government
+          contribute, and you can withdraw at 65 (as at Oct 2026) or for a first home. <a
+            href="/guide/3-investment-accounts">More &rarr;</a
+          >
+        </dd>
+      </div>
+
+      <div>
         <dt class="font-semibold text-gray-900 dark:text-gray-100">
-          IRA (Individual Retirement Account)
+          PIE (portfolio investment entity)
         </dt>
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          A retirement account you open yourself. Traditional may be tax-deductible; Roth
-          contributions are after-tax but withdrawals are tax-free. <a
+          A New Zealand managed fund, including most KiwiSaver funds, whose returns are taxed at
+          your prescribed investor rate (PIR) of 10.5%, 17.5% or 28% (as at Oct 2026). <a
             href="/guide/3-investment-accounts">More &rarr;</a
           >
         </dd>
@@ -163,11 +211,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </div>
 
       <div>
-        <dt class="font-semibold text-gray-900 dark:text-gray-100">Roth</dt>
+        <dt class="font-semibold text-gray-900 dark:text-gray-100">Salary sacrifice</dt>
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          A tax treatment where you pay taxes now but all growth and qualified withdrawals are
-          tax-free. Available for 401k and IRA. <a href="/guide/3-investment-accounts"
-            >More &rarr;</a
+          In Australia, having part of your pre-tax pay paid into super. It is taxed at 15%
+          (2026-27) in the fund instead of at your marginal tax rate. <a
+            href="/guide/3-investment-accounts">More &rarr;</a
           >
         </dd>
       </div>
@@ -181,22 +229,19 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       </div>
 
       <div>
-        <dt class="font-semibold text-gray-900 dark:text-gray-100">Target date fund</dt>
+        <dt class="font-semibold text-gray-900 dark:text-gray-100">Superannuation (super)</dt>
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          A single fund that holds stocks and bonds and automatically adjusts over time, becoming
-          more conservative as the target date approaches. <a href="/guide/4-investment-choices"
-            >More &rarr;</a
-          >
+          Australia's retirement savings system. Your employer must pay the Super Guarantee of 12%
+          (from 1 Jul 2025) of your earnings into your fund, and you can usually access it from age
+          60 (from 2024-25) once you retire. <a href="/guide/3-investment-accounts">More &rarr;</a>
         </dd>
       </div>
 
       <div>
-        <dt class="font-semibold text-gray-900 dark:text-gray-100">Treasury bill (T-bill)</dt>
+        <dt class="font-semibold text-gray-900 dark:text-gray-100">Term deposit</dt>
         <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          A short-term U.S. government bond (4 weeks to 1 year). Considered risk-free. Often used
-          for the conservative tier of an emergency fund. <a href="/guide/1-cash-cushion"
-            >More &rarr;</a
-          >
+          Money deposited with a bank for a fixed term at a fixed interest rate. Often used for the
+          slower-access tier of an emergency fund. <a href="/guide/1-cash-cushion">More &rarr;</a>
         </dd>
       </div>
     </dl>

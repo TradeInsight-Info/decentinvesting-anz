@@ -4,7 +4,7 @@
 
 A free, open guide to building a strong financial foundation — no jargon, no gimmicks, no sales pitch.
 
-[**Read the guide at decentinvesting.com**](https://decentinvesting.com)
+[**Read the guide at decentinvesting.tradeinsight.info**](https://decentinvesting.tradeinsight.info)
 
 ## What this is
 
@@ -17,8 +17,8 @@ The word "decent" is intentional — this isn't about beating the market or gett
 0. **Before You Start** — Setting expectations and mindset
 1. **Build a Cash Cushion** — Emergency funds and savings
 2. **Tackle Debt** — Prioritizing what to pay off
-3. **Investment Accounts** — 401(k), HSA, IRA, and taxable brokerages in order of tax efficiency
-4. **Investment Choices** — Diversified index funds and target date funds
+3. **Investment Accounts** — Super (Australia), KiwiSaver (New Zealand), and investing in your own name
+4. **Investment Choices** — Low-cost index and diversified funds available in Australia and New Zealand
 5. **Staying the Course** — Why doing nothing is usually the right move
 6. **Next Steps** — Where to go from here
 
@@ -32,7 +32,7 @@ Contributions are welcome! Whether it's fixing a typo, improving clarity, or sug
 
 ## Disclaimer
 
-The content on this site is for **informational and educational purposes only** and is not professional financial, investment, tax, or legal advice. Investing involves risk, including the potential loss of principal. Always consult a qualified professional before making financial decisions. [Read the full disclaimer.](https://decentinvesting.com/reference/disclaimer)
+The content on this site is for **informational and educational purposes only** and is not professional financial, investment, tax, or legal advice. Investing involves risk, including the potential loss of principal. Always consult a qualified professional before making financial decisions. [Read the full disclaimer.](https://decentinvesting.tradeinsight.info/reference/disclaimer)
 
 ---
 

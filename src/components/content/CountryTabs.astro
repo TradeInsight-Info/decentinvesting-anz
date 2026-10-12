@@ -1,0 +1,44 @@
+---
+const countries = [
+  { code: 'au', name: 'Australia' },
+  { code: 'nz', name: 'New Zealand' },
+] as const;
+---
+
+<div class="my-6">
+  <div
+    role="group"
+    aria-label="Country"
+    class="mb-4 inline-flex rounded-lg border border-sage-200 p-1 dark:border-sage-800"
+  >
+    {
+      countries.map(({ code, name }) => (
+        <button
+          type="button"
+          data-country-tab={code}
+          aria-pressed={String(code === 'au')}
+          class="cursor-pointer rounded-md px-4 py-1.5 text-sm font-medium text-sage-700 transition-colors hover:bg-sage-50 aria-pressed:bg-sage-600 aria-pressed:text-white dark:text-sage-300 dark:hover:bg-sage-900/60 dark:aria-pressed:bg-sage-500 dark:aria-pressed:text-gray-950"
+        >
+          {name}
+        </button>
+      ))
+    }
+  </div>
+  <div data-country-panel="au">
+    <p class="text-sm text-gray-500 dark:text-gray-400">
+      Reading from New Zealand? Choose New Zealand above.
+    </p>
+    <slot name="au" />
+  </div>
+  <div data-country-panel="nz" hidden="until-found">
+    <p class="text-sm text-gray-500 dark:text-gray-400">
+      Reading from Australia? Choose Australia above.
+    </p>
+    <slot name="nz" />
+  </div>
+</div>
+
+<script>
+  import { initCountryTabs } from '@/lib/country-tabs';
+  initCountryTabs();
+</script>

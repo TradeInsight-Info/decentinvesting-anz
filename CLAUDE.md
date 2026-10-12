@@ -1,6 +1,6 @@
 # Decent Investing ANZ
 
-A guide to decent investing for Australia and New Zealand.
+A guide to decent investing for people in Australia and New Zealand.
 
 ## Git
 

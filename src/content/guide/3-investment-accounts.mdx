@@ -1,139 +1,134 @@
 ---
 title: Investment Accounts
-description: Which investment accounts to use first, contribution limits, and the Roth vs Traditional decision.
+description: Super in Australia and KiwiSaver in New Zealand, contribution limits, salary sacrifice, and investing outside retirement accounts.
 order: 3
 ---
 
 import Callout from '@/components/content/Callout.astro';
+import CountryTabs from '@/components/content/CountryTabs.astro';
 import Disclosure from '@/components/content/Disclosure.svelte';
-import RothVsTraditional from '@/components/interactive/RothVsTraditional.svelte';
-import Tooltip from '@/components/content/Tooltip.svelte';
+import SalarySacrifice from '@/components/interactive/SalarySacrifice.svelte';
 
 # Which Investment Accounts to Use First
 
-There are two main buckets of investment accounts: **standard** (taxable) and **tax-advantaged**. The tax-advantaged accounts are the single biggest edge available to everyday investors — they let your money compound without being chipped away by annual taxes.
+There are two main buckets of investment accounts: **retirement accounts** (super in Australia, KiwiSaver in New Zealand) and **everything else** (shares, ETFs and managed funds you hold in your own name). Retirement accounts come with tax breaks and, often, money from your employer or the government. That is the single biggest edge available to everyday investors.
 
 The order you fill them in matters more than which specific investments you pick inside them.
 
-## The Hierarchy of Saving
-
-_Generally, fill these accounts in this order:_
-
-1. **401k up to the employer match** — Free money. A 50-100% instant return.
-2. **HSA** — Triple tax advantage (if you're eligible).
-3. **Roth IRA** — Tax-free growth forever.
-4. **401k up to the max** — Lowers your taxable income.
-5. **Taxable brokerage** — For everything beyond tax-advantaged limits.
-
-<Callout type="tip" title="The biggest exception">
-  If you have a near-term goal (house down payment, wedding, sabbatical) that you'll need *before*
-  retirement, save for that in a taxable brokerage account or a high-yield savings account.
-  Retirement accounts lock up your money — that's the trade-off for the tax benefits.
+<Callout type="info" title="Rules change every year">
+  Australia's financial year runs 1 July to 30 June, and New Zealand's tax year runs 1 April to 31
+  March. Every figure on this page has its date in brackets. Check the current numbers at
+  [ato.gov.au](https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds)
+  (Australia) or [ird.govt.nz](https://www.ird.govt.nz/kiwisaver) (New Zealand) before you act.
 </Callout>
 
-## Account Types and Limits
+<CountryTabs>
+<div slot="au">
 
-Contribution limits change annually. The numbers below are for **2025** — always verify the current year's limits at [irs.gov](https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-topics-contributions).
+## Australia: Superannuation
 
-### 401k / 403b / TSP
+Your employer must pay **Super Guarantee** of **12% (from 1 Jul 2025)** of your earnings into your super fund. From **1 July 2026**, under Payday Super, it must reach your fund within 7 business days of each payday. You don't have to contribute anything yourself to get it.
 
-Employer-sponsored retirement plans.
+Super is locked away until you meet a condition of release. The main ones are reaching your **preservation age of 60 (from 2024-25)** and retiring, or turning **65 (as at Oct 2026)** whether or not you still work.
 
-|                          | Traditional 401k                    | Roth 401k                      |
-| ------------------------ | ----------------------------------- | ------------------------------ |
-| **2025 limit**           | $23,500 (under 50) / $31,000 (50+)  | Same                           |
-| **Tax on contributions** | Pre-tax (lowers taxable income now) | After-tax (no deduction now)   |
-| **Tax on growth**        | Tax-deferred                        | Tax-free                       |
-| **Tax on withdrawal**    | Taxed as ordinary income            | Tax-free (if qualified)        |
-| **Employer match**       | Always goes into Traditional bucket | Same — match is always pre-tax |
+### The Hierarchy of Saving (Australia)
 
-**Key feature:** The employer match. If your employer matches 50% of contributions up to 6% of salary, that's a guaranteed 50% return on those dollars. **Always capture the full match before doing anything else.**
+_Generally, work through these in order:_
 
-### IRA (Individual Retirement Account)
+1. **Check your employer super is being paid**, and that your fund's fees are low. If you have several funds, consider combining them so you aren't paying fees twice.
+2. **Low income? Collect the free money.** If you earn under **$64,293 (2026-27)** and make an after-tax contribution, the government may add a co-contribution of up to **$500 (2026-27)**. If your income is **$37,000 or less (2026-27)**, the Low Income Super Tax Offset refunds the 15% tax on your contributions, up to **$500 (2026-27)**. From **1 July 2027** that rises to **$810**, for incomes up to **$45,000**.
+3. **Salary sacrifice**, if your income is above the 15% tax bracket (2026-27). Money you sacrifice into super is taxed at 15% (2026-27) instead of your marginal rate.
+4. **First Home Super Saver scheme**, if you're saving for your first home. You can put in up to **$15,000 a year and $50,000 in total (from 1 Jul 2022)** of voluntary contributions and withdraw them later for a deposit.
+5. **Invest outside super** (ETFs or managed funds in your own name) for goals before retirement, or once you reach the caps.
 
-You open this yourself at a brokerage (Vanguard, Fidelity, Schwab, etc.).
+### Contribution caps
 
-|                          | Traditional IRA                  | Roth IRA                                               |
-| ------------------------ | -------------------------------- | ------------------------------------------------------ |
-| **2025 limit**           | $7,000 (under 50) / $8,000 (50+) | Same                                                   |
-| **Tax on contributions** | May be deductible                | After-tax                                              |
-| **Tax on withdrawal**    | Taxed as ordinary income         | Tax-free (if qualified)                                |
-| **Early withdrawal**     | Penalty + taxes                  | _Contributions_ can be withdrawn anytime, penalty-free |
+| Contribution type                                                      | Cap (2026-27) | How it's taxed in the fund                   |
+| ---------------------------------------------------------------------- | ------------- | -------------------------------------------- |
+| **Concessional** (employer super, salary sacrifice, deducted personal) | $32,500       | 15% contributions tax (2026-27)              |
+| **Non-concessional** (after-tax money you put in)                      | $130,000      | No contributions tax (already taxed as pay)  |
 
-**2025 Roth IRA income limits:** Contributions phase out at $150,000-$165,000 (single) and $236,000-$246,000 (married filing jointly).
+- **Concessional cap:** it was **$30,000 (2025-26)**. If your total super balance was under **$500,000 (on 30 June 2026, for 2026-27)**, you can also use unused cap from up to 5 earlier years.
+- **High earners:** if your income plus concessional contributions is over **$250,000 (2026-27)**, Division 293 tax adds another 15% (2026-27).
+- **Large balances:** extra tax applies above **$3 million (2026-27)** in super. It doesn't affect most people.
 
-<Disclosure client:load title="Backdoor Roth IRA — for high earners">
-If your income exceeds the Roth IRA limits, there's a legal workaround:
+### Salary sacrifice: try the numbers
 
-1. Contribute to a **Traditional IRA** (non-deductible — anyone can do this regardless of income)
-2. **Convert** the Traditional IRA to a Roth IRA shortly after
+Salary sacrifice means asking your employer to pay part of your pre-tax pay straight into super. It counts towards the concessional cap along with your employer's 12% (from 1 Jul 2025). Your employer can't use it to reduce the Super Guarantee they owe you.
 
-The key requirement is that you should have **no existing pre-tax Traditional IRA balance** — otherwise the conversion triggers the pro-rata rule.
+<SalarySacrifice client:load />
 
-If you have old Traditional IRA balances, you may be able to roll them into your 401k first to clear the way.
+<Callout type="tip" title="The biggest trade-off">
+  Super is locked away until at least 60. If you'll need the money for a house, a wedding or a
+  career break before then, save for that outside super. The First Home Super Saver scheme is the
+  one exception for a first home.
+</Callout>
+
+## Investing Outside Super
+
+This is a standard investment account in your own name. There are no contribution limits and no restrictions on when you can access your money. You pay tax on the income each year.
+
+<Disclosure client:load title="Australia: capital gains tax and franking credits">
+
+- **Capital gains discount:** if you're an Australian resident and hold an investment for **at least 12 months**, you pay tax on only **50%** of the gain. This applies to gains up to **30 June 2027**.
+- **Change from 1 July 2027:** under the Treasury Laws Amendment (Tax Reform No. 1) Act 2026, the 50% discount is replaced by indexing your cost base for inflation, with a 30% minimum tax on real gains made from **1 July 2027**. Gains made before that date keep the 50% discount.
+- **Franking credits:** dividends from Australian companies often come with franking credits, your share of the company tax already paid. You count them as income and get them back as a tax offset, which can be refunded if it's more than your tax.
+
+</Disclosure>
+
+</div>
+<div slot="nz">
+
+## New Zealand: KiwiSaver
+
+KiwiSaver is a voluntary retirement scheme. If you're employed and in KiwiSaver, you, your employer and the government all contribute.
+
+| Who                    | Contribution                                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| **You**                | 3.5% of pay by default (from 1 Apr 2026), or 4%, 6%, 8% or 10% if you choose                          |
+| **Your employer**      | At least 3.5% of your gross pay (from 1 Apr 2026), rising to 4% (from 1 Apr 2028)                     |
+| **The government**     | 25c for every $1 you contribute, up to $260.72 a year (from 1 Jul 2025)                               |
+
+- **Employer contributions are taxed.** Employer superannuation contribution tax (ESCT) is taken out before they reach your account, so you receive less than the full 3.5% (from 1 Apr 2026).
+- **Government contribution:** you need to contribute at least **$1,042.86 (from 1 Jul 2025)** a year to get the full **$260.72 (from 1 Jul 2025)**. You don't qualify if your taxable income is over **$180,000 (from 1 Jul 2025)**. It's paid from age 16 to 65.
+- **Under 18:** 16 and 17 year olds get the government contribution **(from 1 Jul 2025)** and employer contributions **(from 1 Apr 2026)**.
+- **Lower rate for a while:** you can apply to contribute 3% for 3 to 12 months **(from 1 Apr 2026)**.
+
+You can withdraw KiwiSaver at **65 (as at Oct 2026)**, the NZ Super age. You can also withdraw early for a **first home**: after 3 years of contributions, you can take out everything except $1,000 (as at Oct 2026). Withdrawals are also allowed for significant financial hardship.
+
+### The Hierarchy of Saving (New Zealand)
+
+_Generally, work through these in order:_
+
+1. **Join KiwiSaver and contribute at least the default rate**, so you receive your employer's contribution.
+2. **Contribute at least $1,042.86 a year (from 1 Jul 2025)** to get the full **$260.72 (from 1 Jul 2025)** government contribution. If you're self-employed or not working, you can pay this in yourself.
+3. **Pick the right fund type.** A growth fund suits a long time horizon, and fees matter (see [Investment Choices](/guide/4-investment-choices)).
+4. **Invest outside KiwiSaver** in PIE funds or ETFs for goals before 65, or once you've covered steps 1 and 2.
+
+<Callout type="tip" title="The biggest trade-off">
+  KiwiSaver money is locked until 65, apart from a first home or hardship. Money for nearer goals
+  belongs outside KiwiSaver.
+</Callout>
+
+## Investing Outside KiwiSaver
+
+This is a standard investment account in your own name. There are no contribution limits and no restrictions on when you can access your money. You pay tax on the income each year.
+
+<Disclosure client:load title="New Zealand: PIE funds and the FIF rules">
+
+- **No general capital gains tax:** New Zealand doesn't tax capital gains in general, though specific rules exist (such as the bright-line test on residential property).
+- **PIE funds:** most KiwiSaver schemes and many managed funds are portfolio investment entities (PIEs). Their returns are taxed at your prescribed investor rate (PIR) of **10.5%, 17.5% or 28% (as at Oct 2026)**. The top PIR is below the **33% and 39%** top income tax rates (2026-27).
+- **Foreign shares you hold directly:** if their total cost is over **$50,000 (as at Oct 2026)**, they fall under the foreign investment fund (FIF) rules. You're then usually taxed on **5% (as at Oct 2026)** of their opening market value each year (the fair dividend rate method). A bill to raise the threshold to $100,000 was introduced on **10 Sep 2026**, but it is not law yet.
+- **Shortcut:** an NZ-based PIE fund that holds global shares handles the FIF tax inside the fund.
 
 </Disclosure>
 
-### HSA (Health Savings Account)
-
-The "triple tax advantage" — the only account type in the U.S. tax code that's tax-advantaged on the way in, while it grows, _and_ on the way out.
-
-1. **Contributions** reduce your taxable income
-2. **Growth** is tax-free
-3. **Withdrawals** for eligible medical expenses are tax-free
-
-**2025 limits:** $4,300 (individual) / $8,550 (family). Plus $1,000 catch-up if 55+.
-
-**Eligibility:** You must be enrolled in a <Tooltip client:load term="High Deductible Health Plan" definition="A health insurance plan with a higher deductible than traditional plans. You pay more out of pocket before insurance kicks in, but premiums are lower." href="/reference/glossary" />.
-
-**The long-game strategy:** Many people pay medical bills out of pocket now, save the receipts, and let their HSA grow invested for decades. You can reimburse yourself for those old medical expenses _at any time in the future_.
-
-### Taxable Brokerage Account
-
-The standard investment account. No contribution limits, no tax advantages, no restrictions on when you can access your money. Use this for money beyond your tax-advantaged limits and near-term savings goals.
-
-### Other Accounts
-
-**FSA (Flexible Spending Account):** "Use it or lose it" — funds generally don't roll over.
-
-**529 Plan:** State-sponsored education savings. Tax-free for qualified education expenses. Since 2024, unused 529 funds can be rolled into a Roth IRA (up to $35,000 lifetime, subject to conditions).
-
-## Roth vs Traditional: The Decision
-
-**Roth = pay taxes now, withdraw tax-free later.**
-**Traditional = skip taxes now, pay taxes on withdrawal.**
-
-The question is: **will your tax rate be higher now or in retirement?**
-
-| If you expect...           | Then lean toward... | Why                                   |
-| -------------------------- | ------------------- | ------------------------------------- |
-| Higher taxes in retirement | **Roth**            | Pay the lower rate now                |
-| Lower taxes in retirement  | **Traditional**     | Skip the higher rate now              |
-| About the same             | **Roth**            | Tax-free growth is more flexible      |
-| You're not sure            | **Roth**            | Tax diversification gives you options |
-
-### Try It: Compare the Numbers
-
-<RothVsTraditional client:load />
-
-<Disclosure client:load title="Asset location: which investments go in which accounts?">
-Once you have multiple account types, you can be strategic about *which investments you put where*:
-
-| Account type               | Best investments to hold here                | Why                                    |
-| -------------------------- | -------------------------------------------- | -------------------------------------- |
-| **Roth IRA / Roth 401k**   | Highest expected growth (stocks)             | All growth is tax-free                 |
-| **Traditional IRA / 401k** | Bonds, REITs, high-dividend funds            | Hide ordinary income from annual taxes |
-| **Taxable brokerage**      | Low-turnover index funds, tax-efficient ETFs | Minimize taxable events                |
-
-This optimization adds roughly 0.1-0.3% per year in after-tax returns. Worth doing once your portfolio spans multiple account types.
-
-</Disclosure>
+</div>
+</CountryTabs>
 
 <Callout type="warning">
-  - **Not contributing enough to get the full employer match** — the closest thing to free money in
-  investing. - **Ignoring the Roth option because "I want the tax break now"** — if you're in your
-  20s-30s earning a moderate income, the Roth is almost certainly better. - **Contributing to a 529
-  before maximizing retirement accounts** — your kids can get student loans; you can't get a
-  retirement loan. - **Forgetting about the HSA** — the triple tax advantage makes it arguably the
-  best account type available.
+  Common mistakes: not checking that your employer is paying your super or KiwiSaver contributions;
+  leaving your KiwiSaver contributions below the $1,042.86 a year (from 1 Jul 2025) needed for the full
+  government contribution; salary sacrificing money you'll need before 60; and paying fees on
+  several super funds at once.
 </Callout>

@@ -5,6 +5,7 @@ order: 4
 ---
 
 import Callout from '@/components/content/Callout.astro';
+import CountryTabs from '@/components/content/CountryTabs.astro';
 import Disclosure from '@/components/content/Disclosure.svelte';
 import ScrollReveal from '@/components/content/ScrollReveal.svelte';
 import FeeImpactCalculator from '@/components/interactive/FeeImpactCalculator.svelte';
@@ -24,42 +25,95 @@ An [index fund](https://en.wikipedia.org/wiki/Index_fund) is a fund that owns a 
 
 **Why this works:**
 
-- Over any 20-year period in history, the broad stock market has produced positive returns
-- 85-90% of professional fund managers **fail to beat** a simple index fund after fees over 10+ years
+- Most professional fund managers **fail to beat** a simple index fund after fees. In Australia, 89% of Australian Equity General funds trailed the S&P/ASX 200 over 15 years (to 30 Jun 2026)
 - You don't need to research individual companies, time the market, or make trading decisions
+
+Some widely used index funds, with their yearly fees:
+
+### Australian Index Funds
+
+- **IOZ** ([iShares Core S&P/ASX 200 ETF](https://www.blackrock.com/au/products/251852/ishares-core-sp-asx-200-etf)): the 200 largest Australian companies, 0.05% (as at Oct 2026)
+- **VAS** (Vanguard Australian Shares Index ETF): the 300 largest Australian companies, 0.07% (as at Oct 2026)
+- **VGS** ([Vanguard MSCI Index International Shares ETF](https://www.vanguard.com.au/personal/invest-with-us/etf?portId=8212)): developed-market shares outside Australia, 0.18% (as at Oct 2026)
+- **VAF** (Vanguard Australian Fixed Interest Index ETF): Australian bonds, 0.10% (as at Oct 2026)
+
+### US-Listed Index Funds
+
+Many Australian and NZ brokers let you buy US-listed ETFs, which are among the cheapest funds in the world:
+
+- **VT** ([Vanguard Total World Stock ETF](https://advisors.vanguard.com/investments/products/vt/)): shares across the whole world, 0.06% (as at 27 Feb 2026)
+- **VTI** ([Vanguard](https://advisors.vanguard.com/investments/products/vti/)): the whole US share market, 0.03% (as at 28 Apr 2026)
+- **VXUS** ([Vanguard Total International Stock ETF](https://advisors.vanguard.com/investments/products/vxus/)): shares outside the US, 0.05% (as at 27 Feb 2026)
+- **BND** ([Vanguard Total Bond Market ETF](https://advisors.vanguard.com/investments/products/bnd/)): US bonds, 0.03% (as at 28 Apr 2026)
+
+The low fee isn't the whole cost:
+
+- **Currency:** you buy and get dividends in US dollars, so you pay to convert, and your returns move with the exchange rate.
+- **US tax forms:** your broker will ask you to fill in a W-8BEN form, so US tax on your dividends is withheld at the lower treaty rate.
+- **US estate tax:** if you aren't a US citizen or resident, your estate must file a US estate tax return when your US assets are worth over **US$60,000 (as at Oct 2026)** at your death ([IRS](https://www.irs.gov/individuals/international-taxpayers/some-nonresidents-with-us-assets-must-file-estate-tax-returns)).
+- **New Zealand:** above **$50,000 (as at Oct 2026)** of overseas shares, the FIF rules apply (see [Investment Accounts](/guide/3-investment-accounts)).
+
+A fund listed on the ASX or NZX that holds the same shares avoids most of this.
+
+### New Zealand Index Funds
+
+- **NZG** (Smart S&P/NZX 50 ETF): the 50 largest NZ companies, 0.20% (PDS dated 23 Sep 2025)
+- **TWF** ([Smart Total World ETF](https://www.smartinvest.co.nz/funds-and-performance/etfs/international-shares/smart-total-world-etf)): shares across the whole world, 0.40% (PDS dated 23 Sep 2025)
+- **Simplicity Global Share Fund** ([hedged or unhedged](https://simplicity.kiwi/investment-funds/home)): global shares, 0.15% (as at 1 Oct 2026)
+- **Kernel Total World** ([Kernel](https://kernelwealth.co.nz/funds/total-world-fund)): invests in VT, 0.12% (as at Oct 2026), on Kernel's paid Plus and Premium plans only
+- **NGB** (Smart S&P/NZX NZ Government Bond ETF): NZ government bonds, 0.20% (PDS dated 23 Sep 2025)
 
 ## Fees: The Silent Wealth Destroyer
 
 Every fund charges an **expense ratio (ER)** — an annual percentage fee deducted from your returns. The difference between a cheap fund and an expensive one is enormous over time.
 
-| Fund type                         | Typical expense ratio |
-| --------------------------------- | --------------------- |
-| Broad index fund (VTI, VXUS, BND) | 0.03-0.10%            |
-| Target date index fund            | 0.10-0.15%            |
-| Actively managed fund             | 0.50-1.50%+           |
+| Fund type                                                 | Example fees (as at Oct 2026) |
+| --------------------------------------------------------- | ----------------------------- |
+| Broad index ETF (e.g. IOZ, VAS, VAF, VGS)                 | 0.05-0.18%                    |
+| Diversified all-in-one fund (e.g. DHHF, Simplicity Growth, VDHG) | 0.19-0.27%             |
+| Actively managed fund                                     | often several times higher    |
 
 ### See the Impact
 
 <FeeImpactCalculator client:load />
 
-**The rule:** target expense ratios below **0.20%** for stock funds and below **0.10%** for bond funds.
+**The rule:** aim for total fees below about **0.40%** a year. Many index funds in both countries charge much less (see the examples above, as at Oct 2026).
 
-## ETF vs Mutual Fund
+## ETF vs Managed Fund
 
-|                         | ETF                                         | Index Mutual Fund             |
-| ----------------------- | ------------------------------------------- | ----------------------------- |
-| **How you buy**         | Like a stock — any time during market hours | Once per day at closing price |
-| **Minimum investment**  | Price of 1 share (often $50-400)            | Often $1,000-$3,000           |
-| **Tax efficiency**      | Slightly better (in taxable accounts)       | Slightly worse                |
-| **Automatic investing** | Harder to automate                          | Easy recurring purchases      |
+|                         | ETF                                                | Index managed fund            |
+| ----------------------- | -------------------------------------------------- | ----------------------------- |
+| **How you buy**         | Like a share on the ASX or NZX, any time the market is open | Once per day at the fund's price |
+| **Minimum investment**  | Price of 1 unit                                    | Varies by provider            |
+| **Automatic investing** | Harder to automate (some brokers offer it)          | Easy recurring purchases      |
 
 **Bottom line:** The differences are minor. Don't let this decision slow you down.
 
 ## Why International Diversification Matters
 
-The U.S. stock market represents roughly **60%** of the total world stock market. Investing _only_ in U.S. stocks means you're betting the U.S. will always outperform. Sometimes it does (2010-2024). Sometimes it doesn't (2000-2009).
+Australia's share market is only about **1.6%** of the world's (end of 2023, according to [ASIC](https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-807-evaluating-the-state-of-the-australian-public-equity-market-evidence-from-data-and-academic-literature/)). New Zealand's is smaller still. Investing _only_ at home means betting your whole future on a small slice of the world economy, and on the same economy your job depends on.
 
-A fund like [**VT (Vanguard Total World Stock ETF)**](https://investor.vanguard.com/investment-products/etfs/profile/vt) owns the whole world in a single purchase: ~60% U.S., ~40% international. Expense ratio: 0.07%.
+A global fund owns thousands of companies across the world in a single purchase.
+
+<CountryTabs>
+<div slot="au">
+
+[Vanguard MSCI Index International Shares ETF (VGS)](https://www.vanguard.com.au/personal/invest-with-us/etf?portId=8212) holds developed-market shares outside Australia, for a 0.18% fee (as at Oct 2026). Pair it with an Australian shares ETF such as IOZ (0.05%, as at Oct 2026) or VAS (0.07%, as at Oct 2026).
+
+</div>
+<div slot="nz">
+
+The [Smart Total World ETF (TWF)](https://www.smartinvest.co.nz/funds-and-performance/etfs/international-shares/smart-total-world-etf) tracks the FTSE Global All Cap Index for 0.40% (PDS dated 23 Sep 2025). [Simplicity's global share funds](https://simplicity.kiwi/investment-funds/home) charge 0.15% (as at 1 Oct 2026).
+
+<Callout type="info" title="New Zealand: buying overseas ETFs directly">
+  If you buy US-listed ETFs yourself and their total cost goes over **$50,000 (as at Oct 2026)**, the
+  foreign investment fund (FIF) rules apply, and you're usually taxed on 5% (as at Oct 2026) of their value each
+  year. NZ-based PIE funds that hold global shares deal with this inside the fund. See
+  [Investment Accounts](/guide/3-investment-accounts).
+</Callout>
+
+</div>
+</CountryTabs>
 
 ## The Missing Piece: Bonds
 
@@ -77,31 +131,56 @@ A common rule of thumb: **your bond allocation ≈ your age minus 20** (so a 40-
 
 From simplest to slightly more hands-on:
 
-### Option 1: Target Date Fund (Simplest)
+### Option 1: Your Super or KiwiSaver Default (Simplest)
 
-A single fund that automatically adjusts as you age. Pick the fund closest to your expected retirement year.
+Your retirement money is already invested. In Australia, if you don't choose, your super goes into the fund's MySuper option, which may be a **lifecycle** option ([Moneysmart](https://moneysmart.gov.au/grow-your-super/super-investment-options)): more growth assets while you're young, moving to safer assets as retirement nears. In New Zealand, check which fund type your KiwiSaver is in and whether it suits how long you have until 65.
 
-- **Example:** [Vanguard Target Retirement 2060 Fund](https://investor.vanguard.com/investment-products/mutual-funds/profile/vttsx) — ~0.08% ER
-- **You do:** Buy it and contribute regularly. That's it.
+- **You do:** Check the option, check the fees, and keep contributing.
 
-This is the **85% Solution** in its purest form.
+### Option 2: One Diversified Fund
 
-### Option 2: One-Fund Global Equity (VT)
+A single fund holding shares (and sometimes bonds) across your home market and the world, rebalanced for you.
 
-All-stock, all-world: **VT** — 0.07% ER. Simple if you're young and decades from retirement.
+<CountryTabs>
+<div slot="au">
 
-### Option 3: Two-Fund (VT + BND)
+[Betashares Diversified All Growth ETF (DHHF)](https://www.betashares.com.au/fund/diversified-all-growth-etf/), 0.19% (as at Oct 2026), all shares. Vanguard Diversified High Growth Index ETF (VDHG), 0.27% (as at Oct 2026).
 
-Global stocks plus bonds in whatever ratio matches your age: **VT** + **BND** (0.03% ER).
+</div>
+<div slot="nz">
+
+Simplicity Growth Fund, 0.23% (as at 1 Oct 2026).
+
+</div>
+</CountryTabs>
+
+This is the **85% Solution** in its purest form: buy it, contribute regularly, and leave it alone.
+
+### Option 3: Shares Plus Bonds
+
+Global shares plus a bond fund, in whatever ratio matches your age.
+
+<CountryTabs>
+<div slot="au">
+
+VGS + an Australian bond fund such as Vanguard Australian Fixed Interest Index ETF (VAF), 0.10% (as at Oct 2026), or Vanguard Global Aggregate Bond Index (Hedged) ETF (VBND), 0.20% (as at Oct 2026).
+
+</div>
+<div slot="nz">
+
+A global share fund plus a global bond fund. Simplicity's global bond funds charge 0.15% (as at 1 Oct 2026).
+
+</div>
+</CountryTabs>
 
 ### Option 4: Three-Fund Portfolio
 
-The classic [Bogleheads three-fund portfolio](https://www.bogleheads.org/wiki/Three-fund_portfolio): **VTI** (0.03%) + **VXUS** (0.07%) + **BND** (0.03%).
+The classic [Bogleheads three-fund portfolio](https://www.bogleheads.org/wiki/Three-fund_portfolio): home shares, international shares and bonds. In Australia: **VAS** (0.07%) + **VGS** (0.18%) + **VAF** (0.10%), all as at Oct 2026.
 
 <Callout type="tip" title="Which option should you pick?">
-If you're just starting and feeling overwhelmed: **Target Date Fund.** It's genuinely good enough for an entire career of investing.
+If you're just starting and feeling overwhelmed: **one diversified fund** (Option 2). It's genuinely good enough for an entire career of investing.
 
-If you already have a basic understanding and want simplicity with slightly lower fees: **VT + BND.**
+If you already have a basic understanding and want control over your share/bond mix: **shares plus bonds** (Option 3).
 
 The difference between these options over a lifetime is small. The difference between _any_ of them and not investing is enormous.
 
@@ -121,18 +200,18 @@ If you hold multiple funds, your portfolio drifts over time. **Rebalancing** mea
 
 **Tax-smart rebalancing:**
 
-- In tax-advantaged accounts: rebalance freely — no tax consequences
-- In taxable accounts: direct _new contributions_ to the underweight asset
+- In super or KiwiSaver: change your investment option or how new contributions are split
+- In your own name: direct _new contributions_ to the underweight asset, so you don't have to sell (and, in Australia, trigger capital gains tax)
 
-Target date funds rebalance automatically. This is one of their key advantages.
+Diversified all-in-one funds rebalance automatically. This is one of their key advantages.
 
 </Disclosure>
 
 <Callout type="warning">
   - **Paying high fees without realizing it** — check the expense ratio of every fund you own. If
   anything is above 0.50%, investigate cheaper alternatives. - **Holding zero bonds at age 55** —
-  100% stocks is valid at 25, not at 55. - **Only investing in U.S. stocks** — home country bias is
-  natural but costly. Own the world. - **Constantly checking your portfolio** — investors who check
+  100% stocks is valid at 25, not at 55. - **Only investing in Australian or NZ shares** — home
+  country bias is natural but costly. Own the world. - **Constantly checking your portfolio** — investors who check
   daily make worse decisions than those who check quarterly. - **Trying to time the market** — time
   in the market beats timing the market. - **Buying individual stocks with core retirement savings**
   — fine as 5-10% play money, not for your core portfolio.

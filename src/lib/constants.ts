@@ -1,23 +1,24 @@
-/** Contribution limits and tax thresholds. Verify at irs.gov for current year. */
+/** Australian tax and super settings. Verify at ato.gov.au each financial year (1 July). */
 
-export const TAX_YEAR = 2025;
+export const AU_FINANCIAL_YEAR = '2026-27';
 
-export const CONTRIBUTION_LIMITS = {
-  '401k': { under50: 23_500, over50: 31_000 },
-  ira: { under50: 7_000, over50: 8_000 },
-  hsa: { individual: 4_300, family: 8_550, catchUp55: 1_000 },
-} as const;
+export const AU_RESIDENT_TAX_BRACKETS = [
+  { from: 0, rate: 0 },
+  { from: 18_200, rate: 0.15 },
+  { from: 45_000, rate: 0.3 },
+  { from: 135_000, rate: 0.37 },
+  { from: 190_000, rate: 0.45 },
+] as const;
 
-export const ROTH_IRA_INCOME_LIMITS = {
-  single: { phaseOutStart: 150_000, phaseOutEnd: 165_000 },
-  marriedFilingJointly: { phaseOutStart: 236_000, phaseOutEnd: 246_000 },
-} as const;
+export const AU_MEDICARE_LEVY = 0.02;
 
-export const FUND_EXAMPLES = {
-  totalWorld: { ticker: 'VT', name: 'Vanguard Total World Stock ETF', er: 0.0007 },
-  totalUS: { ticker: 'VTI', name: 'Vanguard Total Stock Market ETF', er: 0.0003 },
-  totalIntl: { ticker: 'VXUS', name: 'Vanguard Total International Stock ETF', er: 0.0007 },
-  totalBond: { ticker: 'BND', name: 'Vanguard Total Bond Market ETF', er: 0.0003 },
+export const AU_SUPER = {
+  guaranteeRate: 0.12,
+  concessionalCap: 32_500,
+  contributionsTax: 0.15,
+  division293Threshold: 250_000,
+  lowIncomeOffsetMax: 500,
+  lowIncomeOffsetIncomeLimit: 37_000,
 } as const;
 
 export const MARKET_DRAWDOWNS = [

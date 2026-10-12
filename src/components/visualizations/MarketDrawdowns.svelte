@@ -107,6 +107,7 @@
   >
   </svg>
   <p class="mt-2 text-center text-xs text-gray-500 dark:text-gray-400">
-    Every major crash was followed by full recovery and new highs. S&P 500 data.
+    Every major crash was followed by full recovery and new highs. US share market (S&P 500) data;
+    Australian and NZ crashes are listed above the chart.
   </p>
 </div>
