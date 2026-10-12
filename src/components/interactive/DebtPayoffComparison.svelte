@@ -15,6 +15,9 @@
   const avalanche = $derived(debtPayoff(debts, extraPayment, 'avalanche'));
   const snowball = $derived(debtPayoff(debts, extraPayment, 'snowball'));
   const interestDiff = $derived(Math.abs(avalanche.totalInterest - snowball.totalInterest));
+  const cheaperMethod = $derived(
+    avalanche.totalInterest <= snowball.totalInterest ? 'Avalanche' : 'Snowball',
+  );
 
   function updateDebt(index: number, field: keyof DebtEntry, value: string) {
     const parsed = field === 'name' ? value : Number(value);
@@ -192,13 +195,15 @@
       class="mt-4 rounded-lg border border-sage-200 bg-sage-50 p-3 text-center dark:border-sage-800 dark:bg-sage-950/40"
     >
       <p class="text-sm font-medium text-sage-800 dark:text-sage-300">
-        Avalanche saves <strong class="text-base text-sage-700 dark:text-sage-300"
+        {cheaperMethod} saves <strong class="text-base text-sage-700 dark:text-sage-300"
           >${interestDiff.toLocaleString()}</strong
         > more in interest.
       </p>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-        But the snowball gives faster wins — pick what fits your psychology.
-      </p>
+      {#if cheaperMethod === 'Avalanche'}
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          But the snowball gives faster wins — pick what fits your psychology.
+        </p>
+      {/if}
     </div>
   {/if}
 </div>

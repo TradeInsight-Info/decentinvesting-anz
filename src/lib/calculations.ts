@@ -114,31 +114,32 @@ export function debtPayoff(
       ? [...working].sort((a, b) => b.rate - a.rate)
       : [...working].sort((a, b) => a.remaining - b.remaining);
 
+  const monthlyBudget = debts.reduce((sum, d) => sum + d.minimum, 0) + extraPayment;
   let totalInterest = 0;
   let month = 0;
 
   while (sorted.some((d) => d.remaining > 0) && month < 600) {
     month++;
-    let extra = extraPayment;
-    const target = sorted.find((d) => d.remaining > 0);
+    const open = sorted.filter((d) => d.remaining > 0);
 
-    for (const debt of sorted) {
-      if (debt.remaining <= 0) continue;
+    for (const debt of open) {
       const interest = (debt.remaining * debt.rate) / 12;
       totalInterest += interest;
       debt.remaining += interest;
+    }
 
-      const payment = Math.min(debt.remaining, debt.minimum + (debt === target ? extra : 0));
+    let leftover = monthlyBudget;
+    for (const debt of open) {
+      const payment = Math.min(debt.remaining, debt.minimum);
       debt.remaining -= payment;
+      leftover -= payment;
+    }
 
-      if (debt === target) {
-        extra = Math.max(0, extra - (payment - debt.minimum));
-      }
-
-      if (debt.remaining <= 0.01) {
-        debt.remaining = 0;
-        extra += debt.minimum;
-      }
+    for (const debt of open) {
+      const payment = Math.min(debt.remaining, leftover);
+      debt.remaining -= payment;
+      leftover -= payment;
+      if (debt.remaining <= 0.01) debt.remaining = 0;
     }
   }
 
