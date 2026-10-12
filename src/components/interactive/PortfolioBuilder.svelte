@@ -13,7 +13,7 @@
 
   const slices = $derived([
     {
-      label: 'Stocks (global, including your home market)',
+      label: 'Shares (global, including your home market)',
       value: allocation.stocks,
       color: '#4a7c59',
     },

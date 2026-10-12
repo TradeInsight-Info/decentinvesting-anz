@@ -18,7 +18,7 @@
 <div
   class="my-8 rounded-xl border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-900"
 >
-  <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">Emergency Fund Tiers</h4>
+  <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">Cash Cushion Tiers</h4>
 
   <div class="mb-6 grid max-w-md grid-cols-2 gap-4">
     <CurrencyInput bind:value={monthlyExpenses} label="Monthly expenses" min={500} step={500} />
@@ -38,7 +38,7 @@
   </div>
 
   <!-- Tiered bar visualization -->
-  <div class="mb-4" role="img" aria-label="Emergency fund tier allocation">
+  <div class="mb-4" role="img" aria-label="Cash cushion tier allocation">
     <!-- Labels above the bar -->
     <div class="mb-1 flex gap-1">
       {#each result.tiers as tier, i}

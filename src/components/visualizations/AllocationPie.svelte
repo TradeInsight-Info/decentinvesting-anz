@@ -62,8 +62,8 @@
 
     // Center label
     const total = currentSlices.reduce((sum, s) => sum + s.value, 0);
-    const stockPct = currentSlices
-      .filter((s) => s.label.includes('Stock'))
+    const sharePct = currentSlices
+      .filter((s) => s.label.includes('Share'))
       .reduce((sum, s) => sum + s.value, 0);
     g.append('text')
       .attr('text-anchor', 'middle')
@@ -71,14 +71,14 @@
       .attr('font-size', '24px')
       .attr('font-weight', 'bold')
       .attr('fill', theme.text)
-      .text(`${stockPct}/${total - stockPct}`);
+      .text(`${sharePct}/${total - sharePct}`);
 
     g.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '1.2em')
       .attr('font-size', '11px')
       .attr('fill', theme.label)
-      .text('stocks / bonds');
+      .text('shares / bonds');
   });
 </script>
 
