@@ -36,4 +36,4 @@ The content on this site is for **informational and educational purposes only** 
 
 ---
 
-Built with [Astro](https://astro.build), [Svelte](https://svelte.dev), [Tailwind CSS](https://tailwindcss.com), and deployed on [Cloudflare Pages](https://pages.cloudflare.com).
+Built with [Astro](https://astro.build), [Svelte](https://svelte.dev), [Tailwind CSS](https://tailwindcss.com), and deployed on [GitHub Pages](https://pages.github.com).
