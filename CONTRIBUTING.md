@@ -13,8 +13,8 @@ This guide is open source because good financial education shouldn't be gatekept
 
 1. **Fork** the repository
 2. **Create a branch** for your change (`git checkout -b fix/typo-in-step-3`)
-3. **Make your changes** in the `decent_investing/` directory
-4. **Test locally** with `npm run dev` to make sure things look right
+3. **Make your changes** in the `src/` directory (guide chapters live in `src/content/guide/`)
+4. **Test locally** with `bun install` then `bun dev` to make sure things look right
 5. **Open a pull request** with a clear description of what you changed and why
 
 ## Content guidelines

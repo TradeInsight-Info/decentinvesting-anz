@@ -1,29 +1,5 @@
 {
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true
-  },
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "npx prettier --write $CLAUDE_FILE_PATH 2>/dev/null || true"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo $CLAUDE_FILE_PATH | grep -qE '(wrangler\\.jsonc|package\\.json|package-lock\\.json)$' && echo 'BLOCK: This file controls deployments or dependencies. Confirm with the user before editing.' && exit 2 || exit 0"
-          }
-        ]
-      }
-    ]
   }
 }
