@@ -4,7 +4,7 @@
 
 A free, open guide to building a strong financial foundation — no jargon, no gimmicks, no sales pitch.
 
-[**Read the guide at decentinvesting.tradeinsight.info**](https://decentinvesting.tradeinsight.info)
+[**Read the guide at decentinvesting-anz.tradeinsight.info**](https://decentinvesting-anz.tradeinsight.info)
 
 ## What this is
 
@@ -32,7 +32,7 @@ Contributions are welcome! Whether it's fixing a typo, improving clarity, or sug
 
 ## Disclaimer
 
-The content on this site is for **informational and educational purposes only** and is not professional financial, investment, tax, or legal advice. Investing involves risk, including the potential loss of principal. Always consult a qualified professional before making financial decisions. [Read the full disclaimer.](https://decentinvesting.tradeinsight.info/reference/disclaimer)
+The content on this site is for **informational and educational purposes only** and is not professional financial, investment, tax, or legal advice. Investing involves risk, including the potential loss of principal. Always consult a qualified professional before making financial decisions. [Read the full disclaimer.](https://decentinvesting-anz.tradeinsight.info/reference/disclaimer)
 
 ---
 

@@ -11,7 +11,7 @@ let page: JSDOM;
 
 beforeEach(() => {
   page = new JSDOM(`<!doctype html><head><style>${countryTabsCss}</style></head><body></body>`, {
-    url: 'https://decentinvesting.tradeinsight.info/guide/3-investment-accounts',
+    url: 'https://decentinvesting-anz.tradeinsight.info/guide/3-investment-accounts',
   });
   const { window } = page;
   Object.assign(globalThis, {

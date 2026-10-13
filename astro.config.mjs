@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://decentinvesting.tradeinsight.info',
+  site: 'https://decentinvesting-anz.tradeinsight.info',
   integrations: [svelte(), mdx(), tailwind()],
   output: 'static',
 });
